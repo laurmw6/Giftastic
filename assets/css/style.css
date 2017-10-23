@@ -1,0 +1,58 @@
+.panel-body {
+    background: cadetblue;
+    text-align: center;
+    color: white;
+}
+
+#buttons-images {
+    background: white;
+    color: black;
+}
+
+#form-panel {
+    background: white;
+    color: black;
+}
+
+#nature-form {
+    background: white;
+    color: black;
+    border: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.nature {
+    font-family: 'Quicksand', sans-serif;
+}
+
+#nature-input {
+    font-family: 'Quicksand', sans-serif;
+    width: 150px;
+    margin-right: 10px;
+}
+
+p {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.instructions {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+img {
+    margin-bottom: 40px;
+}
+
+#jumbotron {
+    background: cadetblue;
+    text-align: center;
+    color: white;
+    font-family: 'Shadows Into Light Two', cursive;
+}
+
+.btn.btn-info {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
