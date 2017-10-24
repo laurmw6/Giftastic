@@ -3,7 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/javascript/app.js">
+    <!-- <link rel="stylesheet" href="assets/javascript/app.js"> -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand|Shadows+Into+Light+Two" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,48 +22,47 @@
 
     <body background="assets/images/seamless_leaf_pattern_02.png">
         <div class="container">
-        <row>
-            <div class="col-md-12">
-                <div class="jumbotron" id="jumbotron">
-                    <div class="panel-body">
-                        <h1>Nature Gif Search</h1>
+            <row>
+                <div class="col-md-12">
+                    <div class="jumbotron" id="jumbotron">
+                        <div class="panel-body">
+                            <h1>Nature Gif Search</h1>
+                        </div>
+                    </div>
+                </div>
+
+            </row>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-body" id="buttons-images">
+                        <div id="categories-view"></div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body" id="buttons-images">
+                        <div id="gifs-appear-here">
+                            <p>Click a button above to show the gifs.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-        </row>
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-body" id="buttons-images">
-                    <div id="categories-view"></div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body" id="buttons-images">
-                    <div id="gifs-appear-here">
-                        <p>Click a button above to show the gifs.</p>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body" id=form-panel>
+                        <form id="nature-form">
+                            <label for="nature-input"></label>
+                            <p class="instructions">Use the box below to add a category.</p>
+                            <input type="text" id="nature-input"><input id="add-nature" type="submit" class="btn btn-info"
+                                value="Add Category">
+                        </form>
+                        <hr>
+                        <form id="nature-form">
+                            <button id="reset-page" type="submit" class="btn btn-primary" value="Reset the page">Reset</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body" id=form-panel>
-                    <form id="nature-form">
-                        <label for="nature-input"></label>
-                        <p class="instructions">Use the box below to add a category.</p>
-                        <input type="text" id="nature-input"><input id="add-nature" type="submit" class="btn btn-info" value="Add Category">
-                    </form>
-                    <hr>
-                    <form id="nature-form">
-                        <button id="reset-page" type="submit" class="btn btn-primary" value="Reset the page">Reset</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript">
             var natureCategories = ["Clouds", "Ocean", "Lava", "Forest"];
@@ -86,7 +85,7 @@
                 }
                 natureCategories.push(nature);
                 renderButtons();
-                
+
             });
             renderButtons();
 
@@ -109,25 +108,43 @@
                     for (var i = 0; i < results.length; i++) {
                         // Make a div with jQuery and store it in a variable named natureDiv.
                         var natureDiv = $("<div>");
+                        natureDiv.addClass("natureDiv")
+
+                        // Make a paragraph tag with jQuery and store it in a variable named p and et the inner text of the paragraph to the rating of the image in results[i].
+                        var gifRating = $("<p>").text("Rating: " + results[i].rating);
+
+                        // Append the p variable to the natureDiv variable.
+                        natureDiv.append(gifRating);
+
 
                         // Make an image tag with jQuery and store it in a variable named natureImage.
                         var natureImage = $("<img>");
 
-                        // Set the image's src to results[i]'s fixed_height.url.
-                        natureImage.attr("src", results[i].images.fixed_height.url);
+                        // Set the image's src to results[i]'s fixed_height_still.url to load the still version.
+                        natureImage.attr("src", results[i].images.fixed_height_still.url);
 
-                        // Make a paragraph tag with jQuery and store it in a variable named p and et the inner text of the paragraph to the rating of the image in results[i].
-                        var p = $("<p>").text("Rating: " + results[i].rating);
+                        natureImage.attr("data-animate", results[i].images.fixed_height.url);
 
-                        // Append the p variable to the natureDiv variable.
-                        natureDiv.append(p);
+                        natureImage.attr("data-animate", results[i].images.fixed_height.url);
+
+                        natureImage.attr("data-state", "still");
+                        natureImage.addClass("image");
 
                         // Append the natureImage variable to the natureDiv variable.
                         natureDiv.append(natureImage)
 
                         // Prepend the natureDiv variable to the element with an id of gifs-appear-here.
                         $("#gifs-appear-here").prepend(natureDiv);
-
+                    }
+                });
+                $(document).on("click", ".image", function () {
+                    var state = $(this).attr('data-state');
+                    if (state == 'still') {
+                        $(this).attr('src', $(this).data('animate'));
+                        $(this).attr('data-state', 'animate');
+                    } else {
+                        $(this).attr('src', $(this).data('still'));
+                        $(this).attr('data-state', 'still');
                     }
                 });
             });
