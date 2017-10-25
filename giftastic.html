@@ -89,8 +89,7 @@
             });
             renderButtons();
 
-
-            $("button").on("click", function () {
+            $("#categories-view").on("click", "button", function () {
                 var nature = $(this).attr("data-name");
                 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
                     nature + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -125,7 +124,7 @@
 
                         natureImage.attr("data-animate", results[i].images.fixed_height.url);
 
-                        natureImage.attr("data-animate", results[i].images.fixed_height.url);
+                        natureImage.attr("still", results[i].images.fixed_height_still.url);
 
                         natureImage.attr("data-state", "still");
                         natureImage.addClass("image");
@@ -137,13 +136,13 @@
                         $("#gifs-appear-here").prepend(natureDiv);
                     }
                 });
-                $(document).on("click", ".image", function () {
+                $("#gifs-appear-here").on("click", ".image", function () {
                     var state = $(this).attr('data-state');
                     if (state == 'still') {
                         $(this).attr('src', $(this).data('animate'));
                         $(this).attr('data-state', 'animate');
                     } else {
-                        $(this).attr('src', $(this).data('still'));
+                        $(this).attr('src', $(this).attr('still'));
                         $(this).attr('data-state', 'still');
                     }
                 });
